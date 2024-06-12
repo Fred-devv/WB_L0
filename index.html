@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Orders</h1>
+    <form>
+        <label for="id">Order ID:</label>
+        <input type="number" id="id" name="id">
+        <button type="submit">Get Order</button>
+    </form>
+    <div id="order"></div>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.querySelector('#id').value;
+            const response = await fetch(`/orders/${id}`);
+            const order = await response.json();
+            document.querySelector('#order').innerHTML = `
+                <p>Customer Name: ${order.customerName}</p>
+                <p>Order Date: ${order.orderDate}</p>
+                <p>Total: ${order.total}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
